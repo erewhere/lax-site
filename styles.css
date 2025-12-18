@@ -1,0 +1,92 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+/* Initial fade from black */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeOut 2s forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Base Section Styling */
+section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: black;
+}
+
+/* Hero Section Elements */
+#svg-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+#hero-svg {
+    width: 80%;
+    max-width: 1200px;
+    filter: blur(20px);
+    opacity: 0;
+    animation: focusIn 1.5s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+#main-title {
+    font-size: 4rem;
+    margin: 0;
+}
+
+@keyframes focusIn {
+    from { filter: blur(20px); opacity: 0; transform: scale(1.1); }
+    to { filter: blur(0px); opacity: 1; transform: scale(1); }
+}
+
+#second-image {
+    width: 100%;      /* Full width makes the parallax feel more immersive */
+    max-width: 100%;  /* Or keep your 70% if you prefer the gap */
+    height: auto;
+    display: block;
+    margin-bottom: 0;
+    /* This starting transform helps the parallax feel 'seated' */
+    transform: translateY(100px); 
+    transition: transform 0.1s ease-out;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+#journey-section {
+    justify-content: flex-end; /* Pushes content to the bottom */
+    padding: 0;   
+    overflow: hidden;      /* Ensures no gap at the very bottom */
+}

@@ -1,4 +1,9 @@
-/* Reset */
+:root {
+    --frame-color: #fcf7f0;
+    --frame-border: 3px solid var(--frame-color);
+    --frame-radius: 8px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,43 +17,76 @@ body {
     overflow-x: hidden;
 }
 
-/* Initial fade from black */
-#intro-overlay {
+/* Navigation Styles */
+#main-nav {
     position: fixed;
     top: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(0,0,0,0.9);
+    padding: 20px 0;
+    opacity: 0; /* Hidden on load */
+    transition: opacity 0.5s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-container {
+    max-width: 990px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+#main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* The Fixed Image */
+.reveal-image-wrapper {
+    position: fixed;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: black;
-    z-index: 10;
-    pointer-events: none;
-    animation: fadeOut 2s forwards;
-    animation-delay: 0.5s;
+    z-index: -1; /* Behind everything */
+    display: flex;
+    justify-content: center;
 }
 
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+#second-image {
+    width: 80%;
+    height: auto;
 }
 
-/* Base Section Styling */
-section {
+/* THE HERO - The "Shell" you see first */
+.hero {
     height: 100vh;
     width: 100%;
+    background-color: black; /* Must be solid to hide the image */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: black;
+    position: relative;
+    z-index: 2; /* Sits on top of the fixed image */
 }
 
-/* Hero Section Elements */
 #svg-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 
 #hero-svg {
@@ -57,12 +95,6 @@ section {
     filter: blur(20px);
     opacity: 0;
     animation: focusIn 1.5s ease-out forwards;
-    animation-delay: 0.2s;
-}
-
-#main-title {
-    font-size: 4rem;
-    margin: 0;
 }
 
 @keyframes focusIn {
@@ -70,23 +102,34 @@ section {
     to { filter: blur(0px); opacity: 1; transform: scale(1); }
 }
 
-#second-image {
-    width: 100%;      /* Full width makes the parallax feel more immersive */
-    max-width: 100%;  /* Or keep your 70% if you prefer the gap */
-    height: auto;
-    display: block;
-    margin-bottom: 0;
-    /* This starting transform helps the parallax feel 'seated' */
-    transform: translateY(100px); 
-    transition: transform 0.1s ease-out;
+/* The 990px Container */
+.content-wrapper {
+    width: 990px;
+    margin: 40px audio;
+    padding: 60px;
+
+    border: var(--frame-border);
+    border-radius: 8px;
+
+    box-shadow: 0 0 15px rgba(252, 247, 240, 0.1);
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: left;
 }
 
-h2 {
-    font-size: 3rem;
+/* Base section styles */
+.content-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-#journey-section {
-    justify-content: flex-end; /* Pushes content to the bottom */
-    padding: 0;   
-    overflow: hidden;      /* Ensures no gap at the very bottom */
+.transparent { background: transparent; }
+.solid { background: black; z-index: 2; position: relative; }
+
+/* Smooth scroll for the anchor links */
+html {
+    scroll-behavior: smooth;
 }

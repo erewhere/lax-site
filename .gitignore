@@ -1,0 +1,49 @@
+# --- Security & Secrets ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+auth.json
+
+# --- OS Metadata ---
+.DS_Store
+Thumbs.db
+.Spotlight-V100
+.Trashes
+desktop.ini
+
+# --- Programming Dependencies ---
+node_modules/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+target/
+vendor/
+
+# --- Logs and Databases ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.sqlite
+*.db
+
+# --- Build & Output Folders ---
+dist/
+build/
+out/
+bin/
+obj/
+*.exe
+*.dll
+*.so
+
+# --- Editor Specific ---
+.vscode/
+.idea/
+*.swp
+*.swo
+

@@ -1,55 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Streetlight Co.</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>💡-The Streetlight Co.</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
 
-    <div id="intro-overlay"></div>
+    <body>
+        <div id="intro-overlay"></div>
 
-<div class="reveal-image-wrapper">
-    <img src="images/musicvenue-sm.jpg" id="second-image" alt="The Journey">
-</div>
+        <div class="reveal-image-wrapper">
+            <img src="images/musicvenue-sm.jpg" id="second-image" alt="The Journey">
+        </div>
 
-<nav id="main-nav">
-    <div class="nav-container">
-        <div class="brand">TSC</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">Bio</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#portal">Portal</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <nav id="main-nav">
+            <div class="nav-container">
+                <div class="brand">TSC</div>
+                <ul>
+                    <li><a href="#home">MAIN</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#portfolio">WORKS</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#portal">CLIENT SECTION</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="hero" id="title-section">
+                <div id="svg-container">
+                    <img src="images/hp_logo-hero.svg" id="hero-svg">
+                </div>
+                <h1 id="main-title"></h1>
+            </section>
+
+            <section id="bio-intro" class="content-section solid">
+                <div class="bio-container">
+                    <div class="bio-image-wrapper">
+                        <img src="images/ew-sg.jpg" alt="E" class="bio-img">
+                    </div>
+
+                    <div class="bio-text">
+                        <h2 class="bio-name">ELIJAH WALSH</h2>
+                        <h3 class="bio-title">Founder / Visionary</h3>
+                        <p class="bio-description">
+                            This is the first sentence of your description. 
+                            Followed by the second sentence that defines the movement.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="content-section solid">
+                <div class="content-wrapper">
+                    <h2 class="section-header">ABOUT STREETLIGHT</h2>
+                    <div class="inner-content">
+                        <p>Your narrative goes here. This frame is pinned to 600px height.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="portfolio" class="content-section solid">
+                <div class="content-wrapper">
+                    <h2 class="section-header">WORKS</h2>
+                    <div class="inner-content">
+                        <p>Multimedia, music, and images will be gridded here.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="content-section transparent">
+    <div class="content-wrapper">
+        <h2 class="section-header">CONTACT</h2>
+        <div class="inner-content">
+            <form id="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div> <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+
+                <div class="form-footer">
+                    <div class="captcha-placeholder">
+                        <div class="captcha-box">
+                            <input type="checkbox" id="captcha">
+                            <label for="captcha">I'm not a robot</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Inquiry</button>
+            </div>
+
+            </form>
+        </div>
     </div>
-</nav>
+</section>
 
-<main>
-    <section class="hero" id="title-section">
-        <div id="svg-container">
-            <img src="images/hp_logo-hero.svg" id="hero-svg">
-        </div>
-        <h1 id="main-title">The Streetlight Co.</h1>
-    </section>
+        </main>
 
-    <section id="home" class="content-section transparent">
-        <div class="content-wrapper">
-            <h2>The Streetlight Co.</h2>
-            <p>Intro content sits here, centered in 990px.</p>
-        </div>
-    </section>
-
-    <section id="about" class="content-section solid">
-        <div class="content-wrapper">
-            <h2>Bio</h2>
-            <p>Narrative content goes here.</p>
-        </div>
-    </section>
-</main>
-
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>

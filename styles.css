@@ -2,6 +2,7 @@
     --frame-color: #fcf7f0;
     --frame-border: 3px solid var(--frame-color);
     --frame-radius: 8px;
+    --frame-height: 600px;
 }
 
 * {
@@ -15,6 +16,11 @@ body {
     color: white;
     font-family: sans-serif;
     overflow-x: hidden;
+}
+
+/* Smooth scroll for the anchor links */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Navigation Styles */
@@ -63,8 +69,19 @@ body {
     justify-content: center;
 }
 
+.transparent {
+    background: transparent;
+    z-index: 1;
+}
+
+.solid {
+    background: black; z-index: 2; position: relative;
+    z-index: 2;
+    position: relative;
+}
+
 #second-image {
-    width: 80%;
+    width: 100%;
     height: auto;
 }
 
@@ -102,18 +119,61 @@ body {
     to { filter: blur(0px); opacity: 1; transform: scale(1); }
 }
 
+/* Bio Section Layout */
+.bio-container {
+    width: 990px;
+    margin: 0 auto;
+    text-align: left; /* Anchors everything to the left */
+    padding: 60px 0; /* Vertical breathing room */
+}
+
+.bio-image-wrapper {
+    margin-bottom: 30px;
+}
+
+.bio-img {
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 4px;
+    filter: grayscale(100%); /* Optional: matches a clean TSC aesthetic */
+}
+
+.bio-name {
+    font-size: 2rem;
+    color: var(--frame-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.bio-title {
+    font-size: 1rem;
+    color: rgba(252, 247, 240, 0.6); /* Slightly dimmed version of frame color */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.bio-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px; /* Prevents text from stretching too wide for easy reading */
+    color: white;
+}
+
 /* The 990px Container */
 .content-wrapper {
+    display: flex;
+    flex-direction: column;
+
     width: 990px;
-    margin: 40px audio;
-    padding: 60px;
-
+    height: var(--frame-height);
+    margin: 0px auto;
+    padding: 0px;
     border: var(--frame-border);
-    border-radius: 8px;
-
-    box-shadow: 0 0 15px rgba(252, 247, 240, 0.1);
-    background-color: rgba(0, 0, 0, 0.7);
-    text-align: left;
+    border-radius: var(--frame-radius);
+    background-color: rgba(0, 0, 0, 0.85);
 }
 
 /* Base section styles */
@@ -126,10 +186,134 @@ body {
     justify-content: center;
 }
 
-.transparent { background: transparent; }
-.solid { background: black; z-index: 2; position: relative; }
+.section-header {
+    font-size: 2rem;
+    color: var(--frame-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(252, 247, 240, 0.3);
+    padding-bottom: 10px;
+}
 
-/* Smooth scroll for the anchor links */
-html {
-    scroll-behavior: smooth;
+.inner-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    overflow-y: auto;
+    width: 100%;
+}
+
+/* Custom Scrollbar for a clean look */
+.inner-content::-webkit-scrollbar {
+    width: 5px;
+}
+.inner-content::-webkit-scrollbar-thumb {
+    background: var(--frame-color);
+    border-radius: 10px;
+}
+
+/* Image handling inside the 990px/600px shells */
+.inner-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 0px; /* Spacing between image and text/form */
+    border-radius: calc(var(--frame-radius) - 3px); /* Curves slightly tighter than the frame */
+}
+
+/* Contact Form Styling */
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 40px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-row .form-group {
+    flex: 1; /* Makes both Name and Email take up equal space */
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--frame-color);
+    margin-bottom: 8px;
+}
+
+.form-group input, 
+.form-group textarea {
+    background: white;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-bottom: 1px solid var(--frame-color);
+    box-shadow: 0 0 0 2px var(--frame-color);
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Keeps button and captcha aligned at the bottom */
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.captcha-box {
+    background: #f9f9f9;
+    border: 1px solid #d3d3d3;
+    padding: 10px 15px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #555;
+    font-size: 0.8rem;
+    height: 50px; /* Matches standard captcha height */
+    width: 200px;
+}
+
+.submit-btn {
+    align-self: flex-start;
+    background-color: var(--frame-color);
+    color: black;
+    border: none;
+    padding: 15px 40px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
 }

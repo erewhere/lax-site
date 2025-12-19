@@ -8,24 +8,29 @@
     </head>
 
     <body>
+
+        <audio id="logo-hover-sound" src="audio/mumbai-2305.wav" preload="auto"></audio>
+        <button id="sound-toggle" aria-label="Toggle Sound">
+            <span id="sound-icon">🔊</span>
+        </button>
+
         <div id="intro-overlay"></div>
 
         <div class="reveal-image-wrapper">
             <img src="images/musicvenue-sm.jpg" id="second-image" alt="The Journey">
         </div>
 
-        <nav id="main-nav">
-            <div class="nav-container">
-                <div class="brand">TSC</div>
-                <ul>
-                    <li><a href="#home">MAIN</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#portfolio">WORKS</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li><a href="#portal">CLIENT SECTION</a></li>
-                </ul>
-            </div>
-        </nav>
+  <nav id="main-nav">
+    <div class="nav-logo">
+        <a href="#home" class="text-highlight">TSC</a>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#about" class="text-meta">ABOUT</a></li>
+        <li><a href="#portfolio" class="text-meta">WORKS</a></li>
+        <li><a href="#contact" class="text-meta">CONTACT</a></li>
+        <li><a href="#portal" id="nav-clients" class="text-meta">CLIENT SECTION</a></li>
+    </ul>
+</nav>
 
         <main>
             <section class="hero" id="title-section">
@@ -73,8 +78,8 @@
 
                     <div class="bio-text">
                         <h2 class="bio-name">ELIJAH WALSH</h2>
-                        <h3 class="bio-title">Founder / Visionary</h3>
-                        <p class="bio-description">Leveraging decades as a global touring and production manager, I bridge the gap between high-end audio technology and the pulse of the digital landscape. My career is a lifetime of musical influence refined into professional precision, driving artist campaigns and technical production on a world stage.
+                        <h3 class="bio-title">Global Touring + Production Manager / Audio Media Producer</h3>
+                        <p class="bio-description">A lifetime of musical influence has been distilled into professional precision, driving artist campaigns and technical production on a world stage. Decades of global touring and production management experience define the inate ability to bridge high-end audio technology with the digital landscape. 
                         </p>
                     </div>
                 </div>
@@ -82,14 +87,14 @@
 
             <section id="about" class="content-section solid">
                 <div class="content-wrapper">
-                    <h2 class="section-header">The Background</h2>
+                    <h2 class="section-header">Background</h2>
                     <div class="inner-content">
                         <div class="content-body">
-                            <p class="text-highlight">The Streetlight Co. was born from the grit of the global touring circuit and the precision of the studio.</p>
+                            <p class="text-highlight">The Streetlight Co.</p>
                             
-                            <p class="text-standard">After decades of navigating the complexities of international production, it became clear that the modern artist needs more than just technical support; they need a cohesive digital and sonic strategy that survives the noise.</p>
-                            
-                            <p class="text-standard">TSC operates at the intersection of audio mastery and digital campaign management. We aren’t just editors or technicians—we are architects of the artist's narrative, leveraging world-class audio technology to ensure that every campaign resonates with the same power as a live stadium performance.</p>
+                            <p class="text-standard">The Streetlight Co. (TSC) is the culmination of a life lived within the music industry’s inner circle. Raised in a lineage of award-winning musicians and refined through collaborations with the industry’s preeminent moguls, TSC is now founded to bridge the gap between technical execution and digital strategy.
+
+Everything culminates in this full-service ecosystem: a merger of audio engineering, musical direction, and global touring. TSC does not just provide support; we are architects of the artisan's narrative. Leveraging scholarship-awarded expertise and world-class technology, we ensure every campaign resonates with the raw power of a stadium performance.
                             
                             <p class="text-meta">This is the movement: professional standards meets digital innovation.</p>
                         </div>
@@ -109,23 +114,23 @@
                             
                             <div class="work-item">
                                 <div class="work-thumb">
-                                    <img src="https://picsum.photos/990/600?grayscale" alt="Project 1">
+                                    <img src="images/do-mtl.jpg" alt="Project 1">
                                 </div>
                                 <div class="work-info">
-                                    <p class="text-highlight">Project Alpha</p>
-                                    <p class="text-standard">Global production details here.</p>
-                                    <p class="text-meta">Tour Management</p>
+                                    <p class="text-highlight">The Do-Over (Canada)</p>
+                                    <p class="text-standard">Producer, Event Management Team</p>
+                                    <p class="text-meta">Event Production Management</p>
                                 </div>
                             </div>
 
                             <div class="work-item">
                                 <div class="work-thumb">
-                                    <img src="https://picsum.photos/990/600?grayscale" alt="Project 2">
+                                    <img src="images/bbbq-to.jpg" alt="Project 2">
                                 </div>
                                 <div class="work-info">
-                                    <p class="text-highlight">Project Bravo</p>
-                                    <p class="text-standard">Digital campaign execution.</p>
-                                    <p class="text-meta">Digital Strategy</p>
+                                    <p class="text-highlight">Bastid's BBQ (Toronto)</p>
+                                    <p class="text-standard">Talent Liase, Hospitality</p>
+                                    <p class="text-meta">Stage Manager</p>
                                 </div>
                             </div>
 

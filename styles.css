@@ -27,13 +27,20 @@ html {
 #main-nav {
     position: fixed;
     top: 0;
-    width: 100%;
-    z-index: 100;
-    background: rgba(0,0,0,0.9);
-    padding: 20px 0;
-    opacity: 0; /* Hidden on load */
-    transition: opacity 0.5s ease;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    left: 0;
+    width: 100%; /* Spans entire screen */
+    height: 70px;
+    background-color: #000;
+    border-bottom: 1px solid var(--frame-color);
+    z-index: 1000;
+    opacity: 0; /* Managed by JS */
+    
+    /* Layout Logic */
+    display: flex;
+    justify-content: space-between; /* Pushes Logo left, UL right */
+    align-items: center;
+    padding: 0 40px; /* Padding from screen edges */
+    box-sizing: border-box;
 }
 
 .nav-container {
@@ -47,7 +54,9 @@ html {
 #main-nav ul {
     display: flex;
     list-style: none;
-    gap: 30px;
+    margin: 0;
+    padding: 0;
+    gap: 40px; /* Space between individual links */
 }
 
 #main-nav a {
@@ -56,6 +65,13 @@ html {
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+/* Ensure the Logo (text-highlight) matches the style */
+#main-nav .text-highlight {
+    font-size: 1rem;
+    margin: 0;
+    cursor: pointer;
 }
 
 /* The Fixed Image */
@@ -140,6 +156,23 @@ html {
     animation: signalPulse 0.6s ease-out !important;
 }
 
+#sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--frame-color);
+    color: var(--frame-color);
+    padding: 8px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+#sound-toggle:hover {
+    opacity: 0.7;
+}
+
 /* Bio Section Layout */
 .bio-container {
     width: 990px;
@@ -161,24 +194,24 @@ html {
 
 /* Refined Bio Typography */
 .bio-name {
-    font-size: 2.5rem; /* Slightly larger for impact */
-    font-weight: 800;
+    font-size: 2rem; /* Slightly larger for impact */
+    font-weight: 500;
     margin-bottom: 2px;
 }
 
 .bio-title {
-    font-size: 0.9rem;
+    font-size: 3rem;
     font-weight: 400;
-    color: var(--frame-color);
+    color: magenta;
     opacity: 0.7;
     margin-bottom: 25px;
     display: block; /* Ensures it sits on its own line */
 }
 
 .bio-description {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     line-height: 1.7;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.5px;
 }
 
@@ -204,13 +237,14 @@ html {
 }
 
 .section-header {
-    font-size: 2rem;
-    color: var(--frame-color);
+    width: 100%;
+    max-width: 990px;
+    margin: 0 auto 30px auto; 
+    border-bottom: 2px solid var(--frame-color);
+    padding: 20px 20px; /* This adds the space you are missing */
+    box-sizing: border-box; /* Keeps the padding inside the 990px width */
+    font-size: 2em;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(252, 247, 240, 0.3);
-    padding-bottom: 10px;
 }
 
 .inner-content {
@@ -248,7 +282,8 @@ html {
 /* Image handling inside the 990px/600px shells */
 .inner-content img {
     width: 100%;
-    height: auto;
+    max-height: 300px;
+    object-fit: cover;
     display: block;
     margin-bottom: 0px; /* Spacing between image and text/form */
     border-radius: calc(var(--frame-radius) - 3px); /* Curves slightly tighter than the frame */
@@ -264,6 +299,7 @@ html {
 
 .text-highlight {
     font-size: 1.5rem;
+    text-transform: uppercase;
     color: var(--frame-color);
     font-weight: 600;
     line-height: 1.4;
@@ -282,8 +318,8 @@ html {
     letter-spacing: 3px;
     color: rgba(252, 247, 240, 0.5);
     border-top: 1px solid rgba(252, 247, 240, 0.1);
-    padding-top: 20px;
-    margin-top: 15px;
+    padding-top: 5px;
+    margin-top: 25px;
 }
 
 /* Layout for Horizontal Track */
@@ -344,8 +380,6 @@ html {
     width: 990px;
     height: 100%;
     scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Arrow Styling */

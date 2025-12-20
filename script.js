@@ -1,105 +1,135 @@
+/* --- 1. IMMEDIATE INITIALIZATION --- */
+// Prevent the browser from jumping to the previous scroll position
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
 
+// Force scroll to top immediately on refresh
 window.scrollTo(0, 0);
 
+/* --- 2. AUDIO CONTEXT UNLOCK --- */
+// Modern browsers block audio until the first user interaction (click/tap)
+const unlockAudio = () => {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // Remove listeners once the audio context is active
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('touchstart', unlockAudio);
+};
+
+document.addEventListener('click', unlockAudio);
+document.addEventListener('touchstart', unlockAudio);
+
+/* --- 3. SCROLL LOGIC --- */
 window.addEventListener('scroll', function() {
     const svgContainer = document.getElementById('svg-container');
     const title = document.getElementById('main-title');
     const nav = document.getElementById('main-nav');
+    const footer = document.getElementById('site-footer');
+    
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     
+    // Hero Fade and Parallax Logic
     let fadeRate = 1 - (scrollPosition / (windowHeight * 0.39));
     let moveUp = scrollPosition * 0.6;
 
     if (fadeRate >= 0) {
-        svgContainer.style.opacity = fadeRate;
-        title.style.opacity = fadeRate;
-        svgContainer.style.transform = `translateY(-${moveUp}px)`;
-        title.style.transform = `translateY(-${moveUp}px)`;
+        if (svgContainer) {
+            svgContainer.style.opacity = fadeRate;
+            svgContainer.style.transform = `translateY(-${moveUp}px)`;
+        }
+        if (title) {
+            title.style.opacity = fadeRate;
+            title.style.transform = `translateY(-${moveUp}px)`;
+        }
     } else {
-        svgContainer.style.opacity = 0;
-        title.style.opacity = 0;
+        if (svgContainer) svgContainer.style.opacity = 0;
+        if (title) title.style.opacity = 0;
     }
 
-    if (scrollPosition > windowHeight * 0.3) {
-        nav.style.opacity = "1";
-    } else {
-        nav.style.opacity = "0";
+    // Navbar Visibility Logic
+    if (nav) {
+        if (scrollPosition > windowHeight * 0.3) {
+            nav.style.opacity = "1";
+            nav.style.pointerEvents = "auto";
+        } else {
+            nav.style.opacity = "0";
+            nav.style.pointerEvents = "none";
+        }
     }
 
-const footer = document.getElementById('site-footer');
-
+    // Footer Visibility (Bottom of Page)
     if (footer) {
         const scrollHeight = document.documentElement.scrollHeight;
         const scrollPos = window.scrollY + window.innerHeight;
 
-        // Triggers only when the user is within 10px of the very bottom
         if (scrollPos >= scrollHeight - 10) {
             footer.classList.add('visible');
         } else {
             footer.classList.remove('visible');
         }
     }
-
 });
 
-const initWorkSlider = () => {
-    const slider = document.getElementById('workSlider');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    if (!slider || !prevBtn || !nextBtn) return;
-
-    const getScrollAmount = () => {
-        const firstItem = slider.querySelector('.work-item');
-        return firstItem ? firstItem.offsetWidth : 990;
-    };
-
-    nextBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-    });
-
-    prevBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-    });
-
-    slider.addEventListener('scroll', () => {
-        const isAtStart = slider.scrollLeft <= 0;
-        const isAtEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 1;
-        prevBtn.style.opacity = isAtStart ? '0.3' : '1';
-        prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
-        nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
-        nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
-    });
-};
-
+/* --- 4. DOM CONTENT LOADED --- */
 document.addEventListener('DOMContentLoaded', () => {
+    
+    /* --- Work Slider Functionality --- */
+    const initWorkSlider = () => {
+        const slider = document.getElementById('workSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        if (!slider || !prevBtn || !nextBtn) return;
+
+        const getScrollAmount = () => {
+            const firstItem = slider.querySelector('.work-item');
+            return firstItem ? firstItem.offsetWidth : 990;
+        };
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+
+        slider.addEventListener('scroll', () => {
+            const isAtStart = slider.scrollLeft <= 0;
+            const isAtEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 1;
+            prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+            prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+            nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        });
+    };
     initWorkSlider();
 
+    /* --- Hero Logo Hover & Sound Logic --- */
     const logo = document.getElementById('hero-svg');
-    const sound = document.getElementById('logo-hover-sound');
+    const logoSound = document.getElementById('logo-hover-sound');
+    const workHoverSound = new Audio('hover.mp3'); // Sound for work items
     
     let hue = 0;
     let colorInterval;
     let fadeInterval;
     let isLoaded = false; 
-    
-    // Adjust this between 0.1 and 1.0 to find the right volume level
     const targetVolume = 0.4; 
 
-    // Lock interaction for the first 1.5s
+    // Lock interactions during initial focus-in animation (1.5s)
     setTimeout(() => { isLoaded = true; }, 1500); 
 
-    if (logo && sound) {
+    if (logo && logoSound) {
         logo.addEventListener('mouseenter', () => {
             if (!isLoaded) return; 
 
-            // Visuals
+            // Visual Effect
             clearInterval(colorInterval); 
             colorInterval = setInterval(() => {
-                hue = (hue + 17) % 360; 
+                hue = (hue + 7) % 360; 
                 const s1 = document.getElementById('stop1');
                 const s2 = document.getElementById('stop2');
                 const s3 = document.getElementById('stop3');
@@ -115,15 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 logo.style.transform = 'scale(1.05)';
             }, 16);
 
-            // Audio
+            // Audio Playback
             clearInterval(fadeInterval);
-            if (sound.paused) {
-            sound.volume = targetVolume;
-            sound.currentTime = 0; 
-            sound.play().catch(() => {
-                // Browser blocks until first click
-            });
-        }
+            if (logoSound.paused) {
+                logoSound.volume = targetVolume;
+                logoSound.currentTime = 0; 
+                logoSound.play().catch(() => { /* Logged if user hasn't clicked yet */ });
+            }
         });
 
         logo.addEventListener('mouseleave', () => {
@@ -136,31 +164,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Audio Fade Out
             fadeInterval = setInterval(() => {
-                if (sound.volume > 0.05) {
-                    sound.volume -= 0.05;
+                if (logoSound.volume > 0.05) {
+                    logoSound.volume -= 0.05;
                 } else {
-                    sound.pause();
+                    logoSound.pause();
                     clearInterval(fadeInterval);
                 }
             }, 30);
         });
     }
+
+    /* --- Sound Toggle Logic --- */
     const soundToggle = document.getElementById('sound-toggle');
+    if (soundToggle && logoSound) {
+        soundToggle.addEventListener('click', () => {
+            logoSound.muted = !logoSound.muted;
+            workHoverSound.muted = !workHoverSound.muted;
+            soundToggle.innerText = logoSound.muted ? 'SOUND: OFF' : 'SOUND: ON';
+            soundToggle.style.opacity = logoSound.muted ? '0.5' : '1';
+        });
+    }
 
-if (soundToggle && sound) {
-    soundToggle.addEventListener('click', () => {
-        // Toggle the muted property of the audio element
-        sound.muted = !sound.muted;
-        
-        // Update the button text to reflect current state
-        soundToggle.innerText = sound.muted ? 'SOUND: OFF' : 'SOUND: ON';
-        
-        // Optional aesthetic: change opacity when muted
-        soundToggle.style.opacity = sound.muted ? '0.5' : '1';
+    /* --- Work Item Hover Sounds --- */
+    document.querySelectorAll('.work-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            workHoverSound.currentTime = 0;
+            workHoverSound.play().catch(() => { /* Blocked by browser if no click yet */ });
+        });
     });
-}
 
-// Client Section Logic
+    /* --- Client Portal Access Logic --- */
     const clientLink = document.getElementById('nav-clients');
     if (clientLink) {
         clientLink.addEventListener('click', (e) => {

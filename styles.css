@@ -12,7 +12,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: rgb(70, 255, 252);
     color: white;
     font-family: sans-serif;
     overflow-x: hidden;
@@ -103,7 +103,7 @@ html {
 
 /* THE HERO - The "Shell" you see first */
 .hero {
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     background-color: black; /* Must be solid to hide the image */
     display: flex;
@@ -173,23 +173,29 @@ html {
     opacity: 0.7;
 }
 
-/* Bio Section Layout */
 .bio-container {
     width: 990px;
     margin: 0 auto;
-    text-align: left; /* Anchors everything to the left */
-    padding: 60px 0; /* Vertical breathing room */
+    text-align: left;
+    padding: 0px 0;
 }
 
 .bio-image-wrapper {
-    margin-bottom: 30px;
+    view-timeline-name: --section-in;
+    view-timeline-axis: block;
+    animation-name: converge-image;
+    animation-timeline: --section-in;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-range: cover 33% cover 59%;
+    margin-bottom: 10px;
 }
 
 .bio-img {
-    width: 300px; /* Adjust size as needed */
+    width: 250px; /* Adjust size as needed */
     height: auto;
     border-radius: 4px;
-    filter: grayscale(100%); /* Optional: matches a clean TSC aesthetic */
+    filter: grayscale(1); 
 }
 
 /* Refined Bio Typography */
@@ -204,7 +210,7 @@ html {
     font-weight: 400;
     color: magenta;
     opacity: 0.7;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     display: block; /* Ensures it sits on its own line */
 }
 
@@ -214,6 +220,50 @@ html {
     font-weight: 400;
     letter-spacing: 0.5px;
 }
+
+@keyframes converge-image {
+    from {
+        opacity: 0;
+        /* Pulls from top-left */
+        transform: translateX(-550px) translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+}
+
+@keyframes converge-text {
+    from {
+        opacity: 0;
+        /* Pushes from bottom */
+        transform: translateY(var(--start-y));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bio-name, .bio-title, .bio-description {
+    view-timeline-name: --section-in;
+    view-timeline-axis: block;
+    animation-timeline: --section-in;
+
+    animation-range: cover 8% cover 28%;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+}
+
+.bio-name, .bio-title, .bio-description {
+    animation-name: converge-text;
+}
+
+/* 4. DEPTH SETTINGS (The 'Pinch' distance) */
+/* These values determine the 'speed'—higher = faster travel */
+.bio-name { --start-y: 20px; }
+.bio-title { --start-y: 80px; }
+.bio-description { --start-y: 90px; }
 
 /* The 990px Container */
 .content-wrapper {
@@ -546,41 +596,50 @@ html {
     position: fixed;
     bottom: 0;
     width: 100%;
-    min-height: 100px;
-    background: rgba(0, 0, 0, 0.95);
-    border-top: 1px solid rgba(252, 247, 240, 0.1);
+    height: 70px;
+    background: #000;
+    border-top: 1px solid var(--frame-color);
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.2s ease;
     z-index: 100;
     display: flex;
-    align-items: center; /* Vertically centers the three-column container */
-    pointer-events: none;
+    align-items: center;
+    padding: 0 40px;
+    overflow: hidden; /* Important: keeps the image from bleeding out */
+}
+
+#site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/musicvenue-sm.jpg');
+    background-size: cover;
+    background-position: center;
+    /* Added filter to ensure text pops */
+    filter: grayscale(100%) brightness(0.4); 
+    opacity: 0.7;
+    z-index: 1; /* Changed to 1, container is 2 */
 }
 
 .footer-container {
     width: 100%;
-    max-width: 990px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    color: rgba(252, 247, 240, 0.5);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    position: relative;
+    z-index: 2; /* Maintains priority over the image */
 }
 
-/* Specific styling for the stacked right column */
-.footer-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Aligns text and links to the right edge */
-    gap: 15px; /* Spacing between social links and design credit */
-}
-
-.social-links {
-    display: flex;
-    gap: 20px;
+.footer-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Creates three equal zones */
+    align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .footer-left {
@@ -589,6 +648,19 @@ html {
 
 .footer-center {
     text-align: center;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Forces social links and credits to the far right */
+    text-align: right;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end; /* Ensures the flex items inside are right-aligned */
 }
 
 #site-footer.visible {
